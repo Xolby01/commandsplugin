@@ -1,14 +1,3 @@
-
-Le jar se trouvera ensuite dans `target/`.
-
-## Installation
-Déposez le JAR dans le dossier `plugins/` de votre serveur Paper/Spigot puis démarrez le serveur.
-
-## Licence
-MIT — utilisez/modifiez comme tu veux.
-
-
-
 # Xolby's Commands
 
 A simple Spigot/Paper plugin adding 3 handy commands:  
