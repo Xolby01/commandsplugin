@@ -6,9 +6,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.CookingRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.List;
+import java.util.Iterator;
 import java.util.Optional;
 
 public class XolbysCommands extends JavaPlugin {
@@ -80,16 +81,19 @@ public class XolbysCommands extends JavaPlugin {
         }
     }
 
-        private Optional<CookingRecipe<?>> findCookingRecipeFor(ItemStack input) {
-        for (Recipe recipe : getServer().recipeIterator()) {
+    private Optional<CookingRecipe<?>> findCookingRecipeFor(ItemStack input) {
+        Iterator<Recipe> iterator = getServer().recipeIterator();
+
+        while (iterator.hasNext()) {
+            Recipe recipe = iterator.next();
+
             if (recipe instanceof CookingRecipe<?> cookingRecipe) {
-                if (cookingRecipe.getInput().test(input)) {
+                RecipeChoice inputChoice = cookingRecipe.getInputChoice();
+                if (inputChoice.test(input)) {
                     return Optional.of(cookingRecipe);
                 }
             }
         }
         return Optional.empty();
     }
-
-} 
-
+}
