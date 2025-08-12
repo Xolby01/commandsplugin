@@ -1,27 +1,26 @@
 package com.xolby.commands;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.CookingRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
-import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 
-public class XolbysCommands extends JavaPlugin implements TabExecutor {
+public class XolbysCommands extends JavaPlugin implements TabCompleter {
 
     @Override
     public void onEnable() {
-        getCommand("craft").setExecutor(this);
-        getCommand("furnace").setExecutor(this);
-        getCommand("furnace").setTabCompleter(this);
-        getCommand("ec").setExecutor(this);
-
         getLogger().info("Xolby's Commands est activé !");
+        getCommand("furnace").setTabCompleter(this); // Ajout autocomplétion
     }
 
     @Override
@@ -54,13 +53,9 @@ public class XolbysCommands extends JavaPlugin implements TabExecutor {
                 }
 
                 if (args.length > 0 && args[0].equalsIgnoreCase("all")) {
-                    // Mode cuisson de tout l'inventaire
-                    int cookedCountAll = cookInventory(player);
-                    player.sendMessage("§aVous avez cuit instantanément §e" + cookedCountAll + " §aitems dans votre inventaire !");
+                    cookAllInventory(player);
                 } else {
-                    // Mode cuisson de l'item en main
-                    int cookedCountHand = cookItemInHand(player);
-                    player.sendMessage("§aVous avez cuit instantanément §e" + cookedCountHand + " §aitems en main !");
+                    cookItemInHand(player);
                 }
                 return true;
 
@@ -77,19 +72,12 @@ public class XolbysCommands extends JavaPlugin implements TabExecutor {
         }
     }
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (command.getName().equalsIgnoreCase("furnace")) {
-            if (args.length == 1) {
-                return Collections.singletonList("all");
-            }
-        }
-        return Collections.emptyList();
-    }
-
-    private int cookItemInHand(Player player) {
+    private void cookItemInHand(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
-        if (item == null || item.getType().isAir()) return 0;
+        if (item == null || item.getType() == Material.AIR) {
+            player.sendMessage("§cVous devez tenir un objet à cuire.");
+            return;
+        }
 
         Optional<CookingRecipe<?>> recipeOpt = findCookingRecipeFor(item);
         if (recipeOpt.isPresent()) {
@@ -97,18 +85,19 @@ public class XolbysCommands extends JavaPlugin implements TabExecutor {
             ItemStack result = cookingRecipe.getResult().clone();
             result.setAmount(item.getAmount());
             player.getInventory().setItemInMainHand(result);
-            return result.getAmount();
+            player.sendMessage("§aL'objet en main a été cuit !");
+        } else {
+            player.sendMessage("§cAucune recette de cuisson trouvée pour cet objet.");
         }
-        return 0;
     }
 
-    private int cookInventory(Player player) {
-        int cookedCount = 0;
+    private void cookAllInventory(Player player) {
         ItemStack[] contents = player.getInventory().getContents();
+        int cookedCount = 0;
 
         for (int i = 0; i < contents.length; i++) {
             ItemStack item = contents[i];
-            if (item == null || item.getType().isAir()) continue;
+            if (item == null || item.getType() == Material.AIR) continue;
 
             Optional<CookingRecipe<?>> recipeOpt = findCookingRecipeFor(item);
             if (recipeOpt.isPresent()) {
@@ -121,21 +110,32 @@ public class XolbysCommands extends JavaPlugin implements TabExecutor {
         }
 
         player.getInventory().setContents(contents);
-        return cookedCount;
+        player.sendMessage("§aVous avez cuit instantanément §e" + cookedCount + " §aitems !");
     }
 
     private Optional<CookingRecipe<?>> findCookingRecipeFor(ItemStack input) {
         Iterator<Recipe> iterator = getServer().recipeIterator();
-
         while (iterator.hasNext()) {
             Recipe recipe = iterator.next();
-            if (recipe instanceof CookingRecipe<?> cookingRecipe) {
-                RecipeChoice inputChoice = cookingRecipe.getInputChoice();
-                if (inputChoice != null && inputChoice.test(input)) {
+            if (recipe instanceof CookingRecipe) {
+                CookingRecipe<?> cookingRecipe = (CookingRecipe<?>) recipe;
+                if (cookingRecipe.getInput().getType() == input.getType()) {
                     return Optional.of(cookingRecipe);
                 }
             }
         }
         return Optional.empty();
+    }
+
+    // --- AUTOCOMPLÉTION ---
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        List<String> completions = new ArrayList<>();
+        if (command.getName().equalsIgnoreCase("furnace")) {
+            if (args.length == 1) {
+                completions.add("all");
+            }
+        }
+        return completions;
     }
 }
