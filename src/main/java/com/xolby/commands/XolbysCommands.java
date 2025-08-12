@@ -2,6 +2,7 @@ package com.xolby.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.CookingRecipe;
 import org.bukkit.inventory.ItemStack;
@@ -9,13 +10,17 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Iterator;
-import java.util.Optional;
+import java.util.*;
 
-public class XolbysCommands extends JavaPlugin {
+public class XolbysCommands extends JavaPlugin implements TabExecutor {
 
     @Override
     public void onEnable() {
+        getCommand("craft").setExecutor(this);
+        getCommand("furnace").setExecutor(this);
+        getCommand("furnace").setTabCompleter(this);
+        getCommand("ec").setExecutor(this);
+
         getLogger().info("Xolby's Commands est activé !");
     }
 
@@ -48,47 +53,14 @@ public class XolbysCommands extends JavaPlugin {
                     return true;
                 }
 
-                // Si l'argument "all" est passé, on cuit tout l'inventaire
                 if (args.length > 0 && args[0].equalsIgnoreCase("all")) {
-                    int cookedCount = 0;
-                    ItemStack[] contents = player.getInventory().getContents();
-
-                    for (int i = 0; i < contents.length; i++) {
-                        ItemStack item = contents[i];
-                        if (item == null || item.getType().isAir()) continue;
-
-                        Optional<CookingRecipe<?>> recipeOpt = findCookingRecipeFor(item);
-                        if (recipeOpt.isPresent()) {
-                            CookingRecipe<?> cookingRecipe = recipeOpt.get();
-                            ItemStack result = cookingRecipe.getResult().clone();
-                            result.setAmount(item.getAmount());
-                            contents[i] = result;
-                            cookedCount += result.getAmount();
-                        }
-                    }
-
-                    player.getInventory().setContents(contents);
-                    player.sendMessage("§aVous avez cuit instantanément §e" + cookedCount + " §aitems dans tout votre inventaire !");
-                    return true;
-                }
-
-                // Sinon, on cuit seulement l'item en main
-                ItemStack itemInHand = player.getInventory().getItemInMainHand();
-                if (itemInHand == null || itemInHand.getType().isAir()) {
-                    player.sendMessage("§cVous devez tenir un objet à cuire dans votre main.");
-                    return true;
-                }
-
-                Optional<CookingRecipe<?>> recipeOpt = findCookingRecipeFor(itemInHand);
-                if (recipeOpt.isPresent()) {
-                    CookingRecipe<?> cookingRecipe = recipeOpt.get();
-                    ItemStack result = cookingRecipe.getResult().clone();
-                    result.setAmount(itemInHand.getAmount());
-                    player.getInventory().setItemInMainHand(result);
-
-                    player.sendMessage("§aVous avez cuit instantanément §e" + result.getAmount() + " §aitems !");
+                    // Mode cuisson de tout l'inventaire
+                    int cookedCountAll = cookInventory(player);
+                    player.sendMessage("§aVous avez cuit instantanément §e" + cookedCountAll + " §aitems dans votre inventaire !");
                 } else {
-                    player.sendMessage("§cAucune recette de cuisson trouvée pour cet objet.");
+                    // Mode cuisson de l'item en main
+                    int cookedCountHand = cookItemInHand(player);
+                    player.sendMessage("§aVous avez cuit instantanément §e" + cookedCountHand + " §aitems en main !");
                 }
                 return true;
 
@@ -105,12 +77,58 @@ public class XolbysCommands extends JavaPlugin {
         }
     }
 
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (command.getName().equalsIgnoreCase("furnace")) {
+            if (args.length == 1) {
+                return Collections.singletonList("all");
+            }
+        }
+        return Collections.emptyList();
+    }
+
+    private int cookItemInHand(Player player) {
+        ItemStack item = player.getInventory().getItemInMainHand();
+        if (item == null || item.getType().isAir()) return 0;
+
+        Optional<CookingRecipe<?>> recipeOpt = findCookingRecipeFor(item);
+        if (recipeOpt.isPresent()) {
+            CookingRecipe<?> cookingRecipe = recipeOpt.get();
+            ItemStack result = cookingRecipe.getResult().clone();
+            result.setAmount(item.getAmount());
+            player.getInventory().setItemInMainHand(result);
+            return result.getAmount();
+        }
+        return 0;
+    }
+
+    private int cookInventory(Player player) {
+        int cookedCount = 0;
+        ItemStack[] contents = player.getInventory().getContents();
+
+        for (int i = 0; i < contents.length; i++) {
+            ItemStack item = contents[i];
+            if (item == null || item.getType().isAir()) continue;
+
+            Optional<CookingRecipe<?>> recipeOpt = findCookingRecipeFor(item);
+            if (recipeOpt.isPresent()) {
+                CookingRecipe<?> cookingRecipe = recipeOpt.get();
+                ItemStack result = cookingRecipe.getResult().clone();
+                result.setAmount(item.getAmount());
+                contents[i] = result;
+                cookedCount += result.getAmount();
+            }
+        }
+
+        player.getInventory().setContents(contents);
+        return cookedCount;
+    }
+
     private Optional<CookingRecipe<?>> findCookingRecipeFor(ItemStack input) {
         Iterator<Recipe> iterator = getServer().recipeIterator();
 
         while (iterator.hasNext()) {
             Recipe recipe = iterator.next();
-
             if (recipe instanceof CookingRecipe<?> cookingRecipe) {
                 RecipeChoice inputChoice = cookingRecipe.getInputChoice();
                 if (inputChoice != null && inputChoice.test(input)) {
