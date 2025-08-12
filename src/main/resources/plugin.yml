@@ -1,30 +1,27 @@
 name: XolbysCommands
 main: com.xolby.commands.XolbysCommands
-version: 0.0.5
-api-version: 1.19
-author: Xolby
-description: A simple Spigot/Paper plugin adding /craft, /furnace (and /furnace all), and /ec commands.
+version: 0.0.6
+api-version: 1.18
 commands:
   craft:
-    description: Open a portable crafting table
+    description: Ouvre une table de craft portable
     usage: /craft
     permission: xolby.commands.craft
   furnace:
-    description: Smelt the item in your hand or all items in your inventory
-    usage: /furnace [all]
+    description: Cuit instantanément les items (vanilla et mods via les recettes enregistrées)
+    usage: /furnace
     permission: xolby.commands.furnace
-    aliases: [smelt]
   ec:
-    description: Open your Ender Chest
+    description: Ouvre votre Ender Chest
     usage: /ec
     permission: xolby.commands.ec
 permissions:
   xolby.commands.craft:
-    description: Allows use of /craft
-    default: true
+    description: Autorise l'utilisation de /craft
+    default: op
   xolby.commands.furnace:
-    description: Allows use of /furnace and /furnace all
-    default: true
+    description: Autorise l'utilisation de /furnace
+    default: op
   xolby.commands.ec:
-    description: Allows use of /ec
-    default: true
+    description: Autorise l'utilisation de /ec
+    default: op
