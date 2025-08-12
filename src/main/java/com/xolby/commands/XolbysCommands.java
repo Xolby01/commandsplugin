@@ -48,6 +48,31 @@ public class XolbysCommands extends JavaPlugin {
                     return true;
                 }
 
+                // Si l'argument "all" est passé, on cuit tout l'inventaire
+                if (args.length > 0 && args[0].equalsIgnoreCase("all")) {
+                    int cookedCount = 0;
+                    ItemStack[] contents = player.getInventory().getContents();
+
+                    for (int i = 0; i < contents.length; i++) {
+                        ItemStack item = contents[i];
+                        if (item == null || item.getType().isAir()) continue;
+
+                        Optional<CookingRecipe<?>> recipeOpt = findCookingRecipeFor(item);
+                        if (recipeOpt.isPresent()) {
+                            CookingRecipe<?> cookingRecipe = recipeOpt.get();
+                            ItemStack result = cookingRecipe.getResult().clone();
+                            result.setAmount(item.getAmount());
+                            contents[i] = result;
+                            cookedCount += result.getAmount();
+                        }
+                    }
+
+                    player.getInventory().setContents(contents);
+                    player.sendMessage("§aVous avez cuit instantanément §e" + cookedCount + " §aitems dans tout votre inventaire !");
+                    return true;
+                }
+
+                // Sinon, on cuit seulement l'item en main
                 ItemStack itemInHand = player.getInventory().getItemInMainHand();
                 if (itemInHand == null || itemInHand.getType().isAir()) {
                     player.sendMessage("§cVous devez tenir un objet à cuire dans votre main.");
@@ -88,7 +113,7 @@ public class XolbysCommands extends JavaPlugin {
 
             if (recipe instanceof CookingRecipe<?> cookingRecipe) {
                 RecipeChoice inputChoice = cookingRecipe.getInputChoice();
-                if (inputChoice.test(input)) {
+                if (inputChoice != null && inputChoice.test(input)) {
                     return Optional.of(cookingRecipe);
                 }
             }
