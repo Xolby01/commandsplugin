@@ -81,14 +81,14 @@ public class XolbysCommands extends JavaPlugin {
     }
 
     private Optional<CookingRecipe<?>> findCookingRecipeFor(ItemStack input) {
-        List<Recipe> recipes = getServer().getRecipesFor(input);
-        if (recipes == null) return Optional.empty();
-
-        for (Recipe recipe : recipes) {
-            if (recipe instanceof CookingRecipe) {
-                return Optional.of((CookingRecipe<?>) recipe);
+    for (Recipe recipe : getServer().recipeIterator()) {
+        if (recipe instanceof CookingRecipe<?> cookingRecipe) {
+            // Compare les ingrédients de la recette avec l'item
+            if (cookingRecipe.getInput().test(input)) {
+                return Optional.of(cookingRecipe);
             }
         }
-        return Optional.empty();
     }
+    return Optional.empty();
 }
+
