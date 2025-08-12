@@ -65,7 +65,7 @@ public class XolbysCommands extends JavaPlugin {
                 }
 
                 player.getInventory().setContents(contents);
-                player.sendMessage("§aVous avez cuit instantanément §e" + cookedCount + " §aitems (mods inclus si une recette existe) !");
+                player.sendMessage("§aVous avez cuit instantanément §e" + cookedCount + " §aitems !");
                 return true;
 
             case "ec":
