@@ -47,25 +47,24 @@ public class XolbysCommands extends JavaPlugin {
                     player.sendMessage("§cVous n'avez pas la permission d'utiliser cette commande.");
                     return true;
                 }
-                int cookedCount = 0;
-                ItemStack[] contents = player.getInventory().getContents();
 
-                for (int i = 0; i < contents.length; i++) {
-                    ItemStack item = contents[i];
-                    if (item == null) continue;
-
-                    Optional<CookingRecipe<?>> recipeOpt = findCookingRecipeFor(item);
-                    if (recipeOpt.isPresent()) {
-                        CookingRecipe<?> cookingRecipe = recipeOpt.get();
-                        ItemStack result = cookingRecipe.getResult().clone();
-                        result.setAmount(item.getAmount());
-                        contents[i] = result;
-                        cookedCount += result.getAmount();
-                    }
+                ItemStack itemInHand = player.getInventory().getItemInMainHand();
+                if (itemInHand == null || itemInHand.getType().isAir()) {
+                    player.sendMessage("§cVous devez tenir un objet à cuire dans votre main.");
+                    return true;
                 }
 
-                player.getInventory().setContents(contents);
-                player.sendMessage("§aVous avez cuit instantanément §e" + cookedCount + " §aitems !");
+                Optional<CookingRecipe<?>> recipeOpt = findCookingRecipeFor(itemInHand);
+                if (recipeOpt.isPresent()) {
+                    CookingRecipe<?> cookingRecipe = recipeOpt.get();
+                    ItemStack result = cookingRecipe.getResult().clone();
+                    result.setAmount(itemInHand.getAmount());
+                    player.getInventory().setItemInMainHand(result);
+
+                    player.sendMessage("§aVous avez cuit instantanément §e" + result.getAmount() + " §aitems !");
+                } else {
+                    player.sendMessage("§cAucune recette de cuisson trouvée pour cet objet.");
+                }
                 return true;
 
             case "ec":
