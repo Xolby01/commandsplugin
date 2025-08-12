@@ -20,7 +20,7 @@ public class XolbysCommands extends JavaPlugin implements TabCompleter {
     @Override
     public void onEnable() {
         getLogger().info("Xolby's Commands est activé !");
-        getCommand("furnace").setTabCompleter(this); // Ajout autocomplétion
+        getCommand("furnace").setTabCompleter(this);
     }
 
     @Override
@@ -127,7 +127,6 @@ public class XolbysCommands extends JavaPlugin implements TabCompleter {
         return Optional.empty();
     }
 
-    // --- AUTOCOMPLÉTION ---
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         List<String> completions = new ArrayList<>();
