@@ -1,0 +1,13 @@
+# Language settings: "en_US" ou "fr_FR"
+language: "fr_FR"
+
+messages:
+  en_US:
+    command_no_permission: "§cYou don't have permission!"
+    furnace_cooked_hand: "§aCooked §e{0} §aitems in your hand!"
+    furnace_no_item: "§cYou must hold an item to cook it!"
+
+  fr_FR:
+    command_no_permission: "§cVous n'avez pas la permission !"
+    furnace_cooked_hand: "§aCuisson de §e{0} §aobjets dans votre main !"
+    furnace_no_item: "§cVous devez tenir un objet pour le cuire !"
