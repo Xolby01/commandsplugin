@@ -11,6 +11,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.List;
+import java.util.Collections;
 
 public class XolbysCommands extends JavaPlugin {
 
