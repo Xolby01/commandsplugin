@@ -2,7 +2,6 @@ package com.xolby.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.CookingRecipe;
 import org.bukkit.inventory.ItemStack;
@@ -12,27 +11,22 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 
-public class XolbysCommands extends JavaPlugin implements TabExecutor {
+public class XolbysCommands extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getCommand("craft").setExecutor(this);
-        getCommand("furnace").setExecutor(this);
-        getCommand("furnace").setTabCompleter(this);
-        getCommand("ec").setExecutor(this);
-
-        getLogger().info("Xolby's Commands est activé !");
+        getLogger().info("Xolby's Commands is enabled!");
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("Xolby's Commands est désactivé !");
+        getLogger().info("Xolby's Commands is disabled!");
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("Seuls les joueurs peuvent exécuter cette commande.");
+            sender.sendMessage("Only players can run this command.");
             return true;
         }
 
@@ -41,7 +35,7 @@ public class XolbysCommands extends JavaPlugin implements TabExecutor {
         switch (cmd.getName().toLowerCase()) {
             case "craft":
                 if (!player.hasPermission("xolby.commands.craft")) {
-                    player.sendMessage("§cVous n'avez pas la permission d'utiliser cette commande.");
+                    player.sendMessage("§cYou don't have permission to use this command.");
                     return true;
                 }
                 player.openWorkbench(player.getLocation(), true);
@@ -49,18 +43,14 @@ public class XolbysCommands extends JavaPlugin implements TabExecutor {
 
             case "furnace":
                 if (!player.hasPermission("xolby.commands.furnace")) {
-                    player.sendMessage("§cVous n'avez pas la permission d'utiliser cette commande.");
+                    player.sendMessage("§cYou don't have permission to use this command.");
                     return true;
                 }
 
                 if (args.length > 0 && args[0].equalsIgnoreCase("all")) {
-                    // Mode cuisson de tout l'inventaire
-                    int cookedCountAll = cookInventory(player);
-                    player.sendMessage("§aVous avez cuit instantanément §e" + cookedCountAll + " §aitems dans votre inventaire !");
+                    cookAllInventory(player);
                 } else {
-                    // Mode cuisson de l'item en main
-                    int cookedCountHand = cookItemInHand(player);
-                    player.sendMessage("§aVous avez cuit instantanément §e" + cookedCountHand + " §aitems en main !");
+                    cookItemInHand(player);
                 }
                 return true;
 
@@ -87,9 +77,13 @@ public class XolbysCommands extends JavaPlugin implements TabExecutor {
         return Collections.emptyList();
     }
 
-    private int cookItemInHand(Player player) {
+    private void cookItemInHand(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
-        if (item == null || item.getType().isAir()) return 0;
+
+        if (item == null || item.getType().isAir()) {
+            player.sendMessage("§cYou must be holding an item to cook it!");
+            return;
+        }
 
         Optional<CookingRecipe<?>> recipeOpt = findCookingRecipeFor(item);
         if (recipeOpt.isPresent()) {
@@ -97,18 +91,19 @@ public class XolbysCommands extends JavaPlugin implements TabExecutor {
             ItemStack result = cookingRecipe.getResult().clone();
             result.setAmount(item.getAmount());
             player.getInventory().setItemInMainHand(result);
-            return result.getAmount();
+            player.sendMessage("§aCooked §e" + result.getAmount() + " §aitem(s) in your hand!");
+        } else {
+            player.sendMessage("§cThis item cannot be cooked!");
         }
-        return 0;
     }
 
-    private int cookInventory(Player player) {
+    private void cookAllInventory(Player player) {
         int cookedCount = 0;
         ItemStack[] contents = player.getInventory().getContents();
 
         for (int i = 0; i < contents.length; i++) {
             ItemStack item = contents[i];
-            if (item == null || item.getType().isAir()) continue;
+            if (item == null) continue;
 
             Optional<CookingRecipe<?>> recipeOpt = findCookingRecipeFor(item);
             if (recipeOpt.isPresent()) {
@@ -121,7 +116,7 @@ public class XolbysCommands extends JavaPlugin implements TabExecutor {
         }
 
         player.getInventory().setContents(contents);
-        return cookedCount;
+        player.sendMessage("§aCooked §e" + cookedCount + " §aitem(s) in your inventory!");
     }
 
     private Optional<CookingRecipe<?>> findCookingRecipeFor(ItemStack input) {
