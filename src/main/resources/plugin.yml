@@ -1,5 +1,5 @@
 name: XolbysCommands
-version: 1.0
+version: 0.0.6
 main: com.xolby.commands.XolbysCommands
 api-version: 1.18
 commands:
