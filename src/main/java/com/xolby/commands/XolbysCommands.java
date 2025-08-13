@@ -57,7 +57,7 @@ public class XolbysCommands extends JavaPlugin {
 
             case "ec":
                 if (!player.hasPermission("xolby.commands.ec")) {
-                    player.sendMessage("§cYou don't have permission to use this command.");
+                    player.sendMessage("§cVous n'avez pas la permission d'utiliser cette commande.");
                     return true;
                 }
                 player.openInventory(player.getEnderChest());
