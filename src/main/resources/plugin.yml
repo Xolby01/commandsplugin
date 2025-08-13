@@ -1,27 +1,24 @@
 name: XolbysCommands
+version: 1.0
 main: com.xolby.commands.XolbysCommands
-version: 0.0.6
 api-version: 1.18
 commands:
   craft:
-    description: Ouvre une table de craft portable
+    description: Opens a portable crafting table
     usage: /craft
     permission: xolby.commands.craft
   furnace:
-    description: Cuit instantanément les items (vanilla et mods via les recettes enregistrées)
-    usage: /furnace
+    description: Cooks the item in your hand or all items in your inventory
+    usage: /furnace [all]
     permission: xolby.commands.furnace
   ec:
-    description: Ouvre votre Ender Chest
+    description: Opens your Ender Chest
     usage: /ec
     permission: xolby.commands.ec
 permissions:
   xolby.commands.craft:
-    description: Autorise l'utilisation de /craft
-    default: op
+    default: true
   xolby.commands.furnace:
-    description: Autorise l'utilisation de /furnace
-    default: op
+    default: true
   xolby.commands.ec:
-    description: Autorise l'utilisation de /ec
-    default: op
+    default: true
