@@ -64,7 +64,6 @@ public class XolbysCommands extends JavaPlugin {
                     return true;
                 }
                 player.openInventory(player.getEnderChest());
-                player.sendMessage(getConfigManager().getMessage("enderchest_opened"));
                 return true;
 
             default:
