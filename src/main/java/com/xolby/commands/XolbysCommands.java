@@ -68,6 +68,16 @@ public class XolbysCommands extends JavaPlugin {
         }
     }
 
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (command.getName().equalsIgnoreCase("furnace")) {
+            if (args.length == 1) {
+                return Collections.singletonList("all");
+            }
+        }
+        return Collections.emptyList();
+    }
+
     private void cookItemInHand(Player player) {
         ItemStack item = player.getInventory().getItemInMainHand();
 
