@@ -9,10 +9,7 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.List;
-import java.util.Collections;
+import java.util.*;
 
 public class XolbysCommands extends JavaPlugin {
 
