@@ -52,9 +52,4 @@ public class ConfigManager {
         }
         return message;
     }
-
-    public void reloadConfig() {
-        config = YamlConfiguration.loadConfiguration(configFile);
-        loadMessages();
-    }
 }
