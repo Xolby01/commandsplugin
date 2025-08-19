@@ -1,15 +1,15 @@
-# Language settings: "en_US" ou "fr_FR"
-language: "fr_FR"
+teleport:
+  cooldown_seconds: 5
+  request_expire_seconds: 60
 
 messages:
-  en_US:
-    command_no_permission: "§cYou don't have permission!"
-    furnace_cooked_hand: "§aCooked §e{0} §aitems in your hand!"
-    furnace_no_item: "§cYou must hold an item to cook it!"
-    furnace_cooked_all: "§aCooked §e{0} §aitems in your inventory!"
-
-  fr_FR:
-    command_no_permission: "§cVous n'avez pas la permission !"
-    furnace_cooked_hand: "§aCuisson de §e{0} §aobjets dans votre main !"
-    furnace_no_item: "§cVous devez tenir un objet pour le cuire !"
-    furnace_cooked_all: "§aCuisson de §e{0} §aobjets dans votre inventaire !"
+  tpa_request_sent: "&aDemande de téléportation envoyée à {player}."
+  tpa_request_received: "&e{player} veut se téléporter à vous. Tapez /tpaaccept pour accepter."
+  tpahere_request_sent: "&aDemande envoyée à {player} de se téléporter vers vous."
+  tpahere_request_received: "&e{player} veut que vous vous téléportiez à lui. Tapez /tpaaccept pour accepter."
+  tpa_accepted: "&aVotre demande de téléportation a été acceptée."
+  tpa_no_request: "&cVous n'avez aucune demande de téléportation en attente."
+  tpa_cooldown: "&cVeuillez patienter {seconds}s avant de refaire une demande."
+  tpa_denied_sender: "&cVotre demande de téléportation a été refusée."
+  tpa_denied_target: "&eVous avez refusé la demande."
+  tpa_expired: "&cLa demande de téléportation a expiré."
