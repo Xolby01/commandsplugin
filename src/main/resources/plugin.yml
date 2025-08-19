@@ -3,6 +3,18 @@ main: com.xolby.commands.XolbysCommands
 version: 1.0.0
 api-version: 1.18
 commands:
+  craft:
+    description: Ouvre un établi virtuel
+    usage: /craft
+    permission: xolby.commands.craft
+  ec:
+    description: Ouvre votre EnderChest
+    usage: /ec
+    permission: xolby.commands.ec
+  furnace:
+    description: Cuit l'item en main ou tout l'inventaire avec 'all'
+    usage: /furnace [all]
+    permission: xolby.commands.furnace
   tpa:
     description: Demander à se téléporter vers un joueur
     usage: /tpa <joueur>
@@ -20,6 +32,15 @@ commands:
     usage: /tpadeny
     permission: xolby.commands.tpa.deny
 permissions:
+  xolby.commands.craft:
+    description: Utiliser /craft
+    default: true
+  xolby.commands.ec:
+    description: Utiliser /ec
+    default: true
+  xolby.commands.furnace:
+    description: Utiliser /furnace
+    default: true
   xolby.commands.tpa:
     description: Utiliser /tpa
     default: true
