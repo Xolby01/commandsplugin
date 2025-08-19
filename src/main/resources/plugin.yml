@@ -22,3 +22,39 @@ permissions:
     default: true
   xolby.commands.ec:
     default: true
+
+tpa:
+  description: Demander à se téléporter vers un joueur
+  usage: /tpa <joueur>
+  permission: xolby.commands.tpa
+
+tpahere:
+  description: Demander à un joueur de se téléporter vers vous
+  usage: /tpahere <joueur>
+  permission: xolby.commands.tpahere
+
+tpaaccept:
+  description: Accepter la dernière demande de téléportation reçue
+  usage: /tpaaccept
+  permission: xolby.commands.tpa.accept
+
+xolby.commands.tpa:
+  description: Utiliser /tpa
+  default: true
+
+xolby.commands.tpahere:
+  description: Utiliser /tpahere
+  default: true
+
+xolby.commands.tpa.accept:
+  description: Utiliser /tpaaccept
+  default: true
+
+tpadeny:
+  description: Refuser la demande de téléportation reçue
+  usage: /tpadeny
+  permission: xolby.commands.tpa.deny
+
+xolby.commands.tpa.deny:
+  description: Utiliser /tpadeny
+  default: true

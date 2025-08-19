@@ -13,3 +13,10 @@ messages:
     furnace_cooked_hand: "§aCuisson de §e{0} §aobjets dans votre main !"
     furnace_no_item: "§cVous devez tenir un objet pour le cuire !"
     furnace_cooked_all: "§aCuisson de §e{0} §aobjets dans votre inventaire !"
+
+\1  request_expire_seconds: 60
+
+messages:
+  tpa_denied_sender: "&cVotre demande de téléportation a été refusée."
+  tpa_denied_target: "&aVous avez refusé la demande."
+  tpa_expired: "&cLa demande de téléportation a expiré."
