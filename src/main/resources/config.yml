@@ -1,0 +1,15 @@
+teleport:
+  cooldown_seconds: 5
+  request_expire_seconds: 60
+
+messages:
+  tpa_request_sent: "&aDemande de téléportation envoyée à {player}."
+  tpa_request_received: "&e{player} veut se téléporter à vous. Tapez /tpaaccept pour accepter."
+  tpahere_request_sent: "&aDemande envoyée à {player} de se téléporter vers vous."
+  tpahere_request_received: "&e{player} veut que vous vous téléportiez à lui. Tapez /tpaaccept pour accepter."
+  tpa_accepted: "&aVotre demande de téléportation a été acceptée."
+  tpa_no_request: "&cVous n'avez aucune demande de téléportation en attente."
+  tpa_cooldown: "&cVeuillez patienter {seconds}s avant de refaire une demande."
+  tpa_denied_sender: "&cVotre demande de téléportation a été refusée."
+  tpa_denied_target: "&eVous avez refusé la demande."
+  tpa_expired: "&cLa demande de téléportation a expiré."
