@@ -14,6 +14,18 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.xolby.commands.cmd.CraftCmd;
+import com.xolby.commands.cmd.FurnaceCmd;
+import com.xolby.commands.cmd.EcCmd;
+import com.xolby.commands.cmd.SetHomeCmd;
+import com.xolby.commands.cmd.HomeCmd;
+import com.xolby.commands.cmd.DelHomeCmd;
+import com.xolby.commands.cmd.TpaCmd;
+import com.xolby.commands.cmd.TpaAcceptCmd;
+import com.xolby.commands.cmd.TpaDenyCmd;
+import com.xolby.commands.cmd.TpaHereCmd;
+import com.xolby.commands.cmd.HelpCmd;
+
 public class XolbysCommands extends JavaPlugin {
 
     private static XolbysCommands instance;
@@ -42,17 +54,18 @@ public class XolbysCommands extends JavaPlugin {
         saveResource("config.json", false);
         loadConfigJson();
         homeStore.load();
-        safeReg("craft", new cmd.CraftCmd(this));
-        safeReg("furnace", new cmd.FurnaceCmd(this));
-        safeReg("ec", new cmd.EcCmd(this));
-        safeReg("sethome", new cmd.SetHomeCmd(this));
-        safeReg("home", new cmd.HomeCmd(this));
-        safeReg("delhome", new cmd.DelHomeCmd(this));
-        safeReg("tpa", new cmd.TpaCmd(this));
-        safeReg("tpaaccept", new cmd.TpaAcceptCmd(this));
-        safeReg("tpadeny", new cmd.TpaDenyCmd(this));
-        safeReg("tpahere", new cmd.TpaHereCmd(this));
-        safeReg("xcmds", new cmd.HelpCmd(this));
+        safeReg("craft", new CraftCmd(this));
+        safeReg("furnace", new FurnaceCmd(this));
+        safeReg("ec", new EcCmd(this));
+        safeReg("sethome", new SetHomeCmd(this));
+        safeReg("home", new HomeCmd(this));
+        safeReg("delhome", new DelHomeCmd(this));
+        safeReg("tpa", new TpaCmd(this));
+        safeReg("tpaaccept", new TpaAcceptCmd(this));
+        safeReg("tpadeny", new TpaDenyCmd(this));
+        safeReg("tpahere", new TpaHereCmd(this));
+        safeReg("xcmds", new HelpCmd(this));
+
         getLogger().info("Xolby's Commands enabled.");
     }
 
