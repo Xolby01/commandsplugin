@@ -2,54 +2,87 @@ name: XolbysCommands
 main: com.xolby.commands.XolbysCommands
 version: 1.0.0
 api-version: 1.18
+author: Xolby
 commands:
   craft:
-    description: Ouvre un établi virtuel
+    description: Ouvre un établi portable
     usage: /craft
-    permission: xolby.commands.craft
+    permission: xcmds.craft
+  furnace:
+    description: Ouvre un four portable ou smelt all
+    usage: /furnace [all]
+    permission: xcmds.furnace
   ec:
     description: Ouvre votre EnderChest
     usage: /ec
-    permission: xolby.commands.ec
-  furnace:
-    description: Cuit l'item en main ou tout l'inventaire avec 'all'
-    usage: /furnace [all]
-    permission: xolby.commands.furnace
+    permission: xcmds.ec
+  sethome:
+    description: Définit votre point /home
+    usage: /sethome
+    permission: xcmds.sethome
+  home:
+    description: Téléportation à votre /home
+    usage: /home
+    permission: xcmds.home
+  delhome:
+    description: Supprime votre /home
+    usage: /delhome
+    permission: xcmds.delhome
   tpa:
-    description: Demander à se téléporter vers un joueur
+    description: Demander une téléportation vers un joueur
     usage: /tpa <joueur>
-    permission: xolby.commands.tpa
-  tpahere:
-    description: Demander à un joueur de se téléporter vers vous
-    usage: /tpahere <joueur>
-    permission: xolby.commands.tpahere
+    permission: xcmds.tpa
   tpaaccept:
-    description: Accepter la dernière demande de téléportation reçue
+    description: Accepter une demande /tpa
     usage: /tpaaccept
-    permission: xolby.commands.tpa.accept
+    permission: xcmds.tpa.accept
   tpadeny:
-    description: Refuser la dernière demande de téléportation reçue
+    description: Refuser une demande /tpa
     usage: /tpadeny
-    permission: xolby.commands.tpa.deny
+    permission: xcmds.tpa.deny
+  tpahere:
+    description: Demander à un joueur de venir à vous
+    usage: /tpahere <joueur>
+    permission: xcmds.tpahere
+  xcmds:
+    description: Liste les commandes du plugin
+    usage: /xcmds
+    permission: xcmds.help
 permissions:
-  xolby.commands.craft:
-    description: Utiliser /craft
+  xcmds.*:
+    description: Accès à toutes les commandes
+    default: op
+    children:
+      xcmds.craft: true
+      xcmds.furnace: true
+      xcmds.ec: true
+      xcmds.sethome: true
+      xcmds.home: true
+      xcmds.delhome: true
+      xcmds.tpa: true
+      xcmds.tpa.accept: true
+      xcmds.tpa.deny: true
+      xcmds.tpahere: true
+      xcmds.help: true
+  xcmds.craft:
     default: true
-  xolby.commands.ec:
-    description: Utiliser /ec
+  xcmds.furnace:
     default: true
-  xolby.commands.furnace:
-    description: Utiliser /furnace
+  xcmds.ec:
     default: true
-  xolby.commands.tpa:
-    description: Utiliser /tpa
+  xcmds.sethome:
     default: true
-  xolby.commands.tpahere:
-    description: Utiliser /tpahere
+  xcmds.home:
     default: true
-  xolby.commands.tpa.accept:
-    description: Utiliser /tpaaccept
+  xcmds.delhome:
     default: true
-  xolby.commands.tpa.deny:
-    description: Utiliser /tpadeny
+  xcmds.tpa:
+    default: true
+  xcmds.tpa.accept:
+    default: true
+  xcmds.tpa.deny:
+    default: true
+  xcmds.tpahere:
+    default: true
+  xcmds.help:
     default: true

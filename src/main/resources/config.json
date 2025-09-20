@@ -1,0 +1,37 @@
+{
+  "language": "fr",
+  "settings": {
+    "allowInstantSmeltAll": true,
+    "instantSmeltConsumesFuel": false,
+    "tpaExpirySeconds": 60,
+    "tpaTeleportDelaySeconds": 0,
+    "homes": {
+      "allowMultipleHomes": false,
+      "maxHomes": 1
+    }
+  },
+  "messages": {
+    "prefix": "&6[XCmds]&r ",
+    "noPermission": "&cVous n'avez pas la permission pour cette commande.",
+    "playersOnly": "&cUniquement en jeu.",
+    "craftOpened": "&aÉtabli ouvert.",
+    "furnaceOpened": "&aFour ouvert.",
+    "smeltAllDone": "&aTous les objets smeltables ont été fondus (%count% stacks).",
+    "smeltAllDisabled": "&cLe smelt-all est désactivé sur ce serveur.",
+    "enderOpened": "&aEnderChest ouvert.",
+    "homeSet": "&aHome défini.",
+    "homeMissing": "&cVous n'avez pas de home.",
+    "homeTeleported": "&aTéléportation à votre home...",
+    "homeDeleted": "&aHome supprimé.",
+    "tpaSent": "&aDemande envoyée à &e%target%&a. Utilisez &e/tpaaccept &aou &e/tpadeny&a.",
+    "tpaHereSent": "&aDemande envoyée à &e%target%&a pour venir vers vous.",
+    "tpaIncoming": "&e%sender% &aa demandé à se téléporter vers vous. &e/tpaaccept &aou &e/tpadeny",
+    "tpaHereIncoming": "&e%sender% &a vous demande de vous téléporter vers lui. &e/tpaaccept &aou &e/tpadeny",
+    "tpaNoRequest": "&cAucune demande en attente.",
+    "tpaAccepted": "&aDemande acceptée.",
+    "tpaDenied": "&cDemande refusée.",
+    "playerNotFound": "&cJoueur introuvable.",
+    "teleportInSeconds": "&7Téléportation dans %seconds%s... Ne bougez pas!"
+  },
+  "messages_en": {}
+}
