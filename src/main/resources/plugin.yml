@@ -13,8 +13,8 @@ commands:
     permission-message: Vous n'avez pas la permission d'utiliser cette commande!
   
   furnace:
-    description: Ouvre un fourneau
-    usage: /<command>
+    description: Cuit l'item dans votre main (ou tous les items avec /furnace all)
+    usage: /<command> [all]
     permission: xolby.furnace
     permission-message: Vous n'avez pas la permission d'utiliser cette commande!
   

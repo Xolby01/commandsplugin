@@ -8,8 +8,14 @@ messages:
   
   # Messages spécifiques aux commandes
   craft-opened: "&aTable de craft ouverte!"
-  furnace-opened: "&aFourneau ouvert!"
   enderchest-opened: "&aCoffre de l'Ender ouvert!"
+  
+  # Messages pour la commande furnace
+  no-item-in-hand: "&cVous n'avez aucun item en main!"
+  cannot-smelt: "&cCet item ne peut pas être cuit dans un fourneau!"
+  item-smelted: "&a%amount%x %item% cuit avec succès!"
+  no-items-to-smelt: "&cAucun item dans votre inventaire ne peut être cuit!"
+  all-items-smelted: "&a%amount% items cuits avec succès dans votre inventaire!"
   
   # Messages d'erreur (optionnels)
   error-generic: "&cUne erreur s'est produite lors de l'exécution de la commande!"
