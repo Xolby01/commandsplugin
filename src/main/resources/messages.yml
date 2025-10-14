@@ -1,0 +1,15 @@
+# Configuration des messages pour Xolby's Commands
+# Utilisez & pour les codes couleur (ex: &a = vert, &c = rouge, &e = jaune)
+
+messages:
+  # Messages généraux
+  only-players: "&cCette commande ne peut être utilisée que par un joueur!"
+  no-permission: "&cVous n'avez pas la permission d'utiliser cette commande!"
+  
+  # Messages spécifiques aux commandes
+  craft-opened: "&aTable de craft ouverte!"
+  furnace-opened: "&aFourneau ouvert!"
+  enderchest-opened: "&aCoffre de l'Ender ouvert!"
+  
+  # Messages d'erreur (optionnels)
+  error-generic: "&cUne erreur s'est produite lors de l'exécution de la commande!"
