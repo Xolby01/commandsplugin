@@ -1,0 +1,45 @@
+name: XolbysCommands
+version: 0.1.2
+main: com.xolby.commands.XolbysCommands
+api-version: 1.18
+author: Xolby
+description: Plugin de commandes utiles
+
+commands:
+  craft:
+    description: Ouvre une table de craft
+    usage: /<command>
+    permission: xolby.craft
+    permission-message: Vous n'avez pas la permission d'utiliser cette commande!
+  
+  furnace:
+    description: Cuit l'item dans votre main (ou tous les items avec /furnace all)
+    usage: /<command> [all]
+    permission: xolby.furnace
+    permission-message: Vous n'avez pas la permission d'utiliser cette commande!
+  
+  ec:
+    description: Ouvre votre coffre de l'Ender
+    usage: /<command>
+    permission: xolby.enderchest
+    permission-message: Vous n'avez pas la permission d'utiliser cette commande!
+
+permissions:
+  xolby.*:
+    description: Donne accès à toutes les commandes
+    children:
+      xolby.craft: true
+      xolby.furnace: true
+      xolby.enderchest: true
+  
+  xolby.craft:
+    description: Permet d'utiliser /craft
+    default: op
+  
+  xolby.furnace:
+    description: Permet d'utiliser /furnace
+    default: op
+  
+  xolby.enderchest:
+    description: Permet d'utiliser /ec
+    default: op
