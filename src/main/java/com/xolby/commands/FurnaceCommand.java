@@ -1,9 +1,12 @@
 package com.xolby.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
 
 public class FurnaceCommand implements CommandExecutor {
     
@@ -27,7 +30,8 @@ public class FurnaceCommand implements CommandExecutor {
             return true;
         }
         
-        player.openFurnace(player.getLocation(), true);
+        Inventory furnace = Bukkit.createInventory(null, InventoryType.FURNACE, "Furnace");
+        player.openInventory(furnace);
         player.sendMessage(plugin.getMessage("messages.furnace-opened"));
         
         return true;
