@@ -1,21 +1,21 @@
-# Configuration des messages pour Xolby's Commands
-# Utilisez & pour les codes couleur (ex: &a = vert, &c = rouge, &e = jaune)
+# Message Configuration for Xolby's Commands
+# Use & for color codes (e.g., &a = green, &c = red, &e = yellow)
 
 messages:
-  # Messages généraux
-  only-players: "&cCette commande ne peut être utilisée que par un joueur!"
-  no-permission: "&cVous n'avez pas la permission d'utiliser cette commande!"
-  
-  # Messages spécifiques aux commandes
-  craft-opened: "&aTable de craft ouverte!"
-  enderchest-opened: "&aCoffre de l'Ender ouvert!"
-  
-  # Messages pour la commande furnace
-  no-item-in-hand: "&cVous n'avez aucun item en main!"
-  cannot-smelt: "&cCet item ne peut pas être cuit dans un fourneau!"
-  item-smelted: "&a%amount%x %item% cuit avec succès!"
-  no-items-to-smelt: "&cAucun item dans votre inventaire ne peut être cuit!"
-  all-items-smelted: "&a%amount% items cuits avec succès dans votre inventaire!"
-  
-  # Messages d'erreur (optionnels)
-  error-generic: "&cUne erreur s'est produite lors de l'exécution de la commande!"
+  # General messages
+  only-players: "&cThis command can only be used by a player!"
+  no-permission: "&cYou do not have permission to use this command!"
+
+  # Command-specific messages
+  craft-opened: "&aCrafting table opened!"
+  enderchest-opened: "&aEnder chest opened!"
+
+  # Messages for the furnace command
+  no-item-in-hand: "&cYou are not holding any item!"
+  cannot-smelt: "&cThis item cannot be smelted in a furnace!"
+  item-smelted: "&a%amount%x %item% successfully smelted!"
+  no-items-to-smelt: "&cNo items in your inventory can be smelted!"
+  all-items-smelted: "&a%amount% items successfully smelted in your inventory!"
+
+  # Error messages (optional)
+  error-generic: "&cAn error occurred while executing the command!"
