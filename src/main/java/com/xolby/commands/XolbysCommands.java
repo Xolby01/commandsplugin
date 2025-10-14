@@ -16,9 +16,13 @@ public class XolbysCommands extends JavaPlugin {
         // Créer le fichier de configuration des messages
         createMessagesConfig();
         
-        // Enregistrer les commandes
+        // Enregistrer les commandes et tab completers
         getCommand("craft").setExecutor(new CraftCommand(this));
-        getCommand("furnace").setExecutor(new FurnaceCommand(this));
+        
+        FurnaceCommand furnaceCommand = new FurnaceCommand(this);
+        getCommand("furnace").setExecutor(furnaceCommand);
+        getCommand("furnace").setTabCompleter(furnaceCommand);
+        
         getCommand("ec").setExecutor(new EnderChestCommand(this));
         
         getLogger().info("Xolby's Commands a été activé avec succès!");

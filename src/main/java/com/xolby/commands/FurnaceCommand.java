@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -14,9 +15,12 @@ import org.bukkit.inventory.BlastingRecipe;
 import org.bukkit.inventory.SmokingRecipe;
 import org.bukkit.inventory.CampfireRecipe;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
-public class FurnaceCommand implements CommandExecutor {
+public class FurnaceCommand implements CommandExecutor, TabCompleter {
     
     private final XolbysCommands plugin;
     
@@ -47,6 +51,16 @@ public class FurnaceCommand implements CommandExecutor {
         // Sinon, cuire l'item en main
         smeltItemInHand(player);
         return true;
+    }
+    
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (args.length == 1) {
+            List<String> completions = new ArrayList<>();
+            completions.add("all");
+            return completions;
+        }
+        return Collections.emptyList();
     }
     
     private void smeltItemInHand(Player player) {
