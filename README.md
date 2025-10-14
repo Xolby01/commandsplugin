@@ -22,9 +22,9 @@ Drop the JAR into your Paper/Spigot server’s `plugins/` folder, then start you
 
 Each command requires a permission:
 
-* `xolby.commands.craft` — lets you use `/craft`
-* `xolby.commands.furnace` — lets you use `/furnace`
-* `xolby.commands.ec` — lets you use `/ec`
+* `xolby.craft` — lets you use `/craft`
+* `xolby.furnace` — lets you use `/furnace`
+* `xolby.ec` — lets you use `/ec`
 
 By default, all permissions are set to `op` only.
 
