@@ -124,29 +124,34 @@ public class FurnaceCommand implements CommandExecutor, TabCompleter {
         Iterator<Recipe> recipeIterator = Bukkit.recipeIterator();
         
         while (recipeIterator.hasNext()) {
-            Recipe recipe = recipeIterator.next();
-            
-            // Vérifier si c'est une recette de cuisson (Furnace, Blast Furnace, Smoker, Campfire)
-            if (recipe instanceof FurnaceRecipe) {
-                FurnaceRecipe furnaceRecipe = (FurnaceRecipe) recipe;
-                if (furnaceRecipe.getInput().getType() == item.getType()) {
-                    return furnaceRecipe.getResult().clone();
+            try {
+                Recipe recipe = recipeIterator.next();
+                
+                // Vérifier si c'est une recette de cuisson (Furnace, Blast Furnace, Smoker, Campfire)
+                if (recipe instanceof FurnaceRecipe) {
+                    FurnaceRecipe furnaceRecipe = (FurnaceRecipe) recipe;
+                    if (furnaceRecipe.getInput().getType() == item.getType()) {
+                        return furnaceRecipe.getResult().clone();
+                    }
+                } else if (recipe instanceof BlastingRecipe) {
+                    BlastingRecipe blastingRecipe = (BlastingRecipe) recipe;
+                    if (blastingRecipe.getInput().getType() == item.getType()) {
+                        return blastingRecipe.getResult().clone();
+                    }
+                } else if (recipe instanceof SmokingRecipe) {
+                    SmokingRecipe smokingRecipe = (SmokingRecipe) recipe;
+                    if (smokingRecipe.getInput().getType() == item.getType()) {
+                        return smokingRecipe.getResult().clone();
+                    }
+                } else if (recipe instanceof CampfireRecipe) {
+                    CampfireRecipe campfireRecipe = (CampfireRecipe) recipe;
+                    if (campfireRecipe.getInput().getType() == item.getType()) {
+                        return campfireRecipe.getResult().clone();
+                    }
                 }
-            } else if (recipe instanceof BlastingRecipe) {
-                BlastingRecipe blastingRecipe = (BlastingRecipe) recipe;
-                if (blastingRecipe.getInput().getType() == item.getType()) {
-                    return blastingRecipe.getResult().clone();
-                }
-            } else if (recipe instanceof SmokingRecipe) {
-                SmokingRecipe smokingRecipe = (SmokingRecipe) recipe;
-                if (smokingRecipe.getInput().getType() == item.getType()) {
-                    return smokingRecipe.getResult().clone();
-                }
-            } else if (recipe instanceof CampfireRecipe) {
-                CampfireRecipe campfireRecipe = (CampfireRecipe) recipe;
-                if (campfireRecipe.getInput().getType() == item.getType()) {
-                    return campfireRecipe.getResult().clone();
-                }
+            } catch (Exception e) {
+                // Ignorer les recettes invalides ou mal formées
+                continue;
             }
         }
         
